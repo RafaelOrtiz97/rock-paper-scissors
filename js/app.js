@@ -1,65 +1,90 @@
-let computerSelection = 0
+let computerSelection = 0;
+let playerSelection = 0;
+let userScore = 0;
+let pcScore = 0;
+const selectionRock = document.getElementById("rock");
+const selectionPaper = document.getElementById("paper");
+const selectionScissors = document.getElementById("scissors");
+const userScoreId = document.getElementById("userScore");
+const pcScoreId = document.getElementById("pcScore");
+const results = document.getElementById("results");
 
 function computerPlay() {
     computerSelection = Math.floor(Math.random() * 3);
-    return computerSelection
-}
-
-function pick() {
-    let playerSelection = window.prompt("Rock, Paper, Scissors: ");
-    playerSelection = playerSelection.toUpperCase();
-    if(playerSelection == "ROCK") {
-        playerSelection = 0;
-    }
-    else if(playerSelection == "PAPER") {
-        playerSelection = 1;
-    }
-    else if(playerSelection == "SCISSORS") {
-        playerSelection = 2;
-    }
-    else {
-        pick();
-    }
-    return playerSelection;
+    return computerSelection;
 }
 
 function playRound() {
     if(computerSelection == playerSelection) {
-        console.log("Draw, Play Again");
+        results.innerHTML = "Draw, Play Again";
+        userScoreId.innerHTML = userScore;
+        pcScoreId.innerHTML = pcScore;
     }
     else if(computerSelection == 0 && playerSelection == 1) {
-        console.log("Paper beats Rock, Player wins!");
+        results.innerHTML = "Paper beats Rock, Player wins!";
+        userScore++;
+        userScoreId.innerHTML = userScore;
+        pcScoreId.innerHTML = pcScore;
     }
     else if(computerSelection == 0 && playerSelection == 2) {
-        console.log("Rock beats Scissors, Computer wins!");
+        results.innerHTML = "Rock beats Scissors, Computer wins!";
+        pcScore++;
+        userScoreId.innerHTML = userScore;
+        pcScoreId.innerHTML = pcScore;
     }
     else if(computerSelection == 1 && playerSelection == 0) {
-        console.log("Paper beats Rock, Computer wins!");
+        results.innerHTML = "Paper beats Rock, Computer wins!";
+        pcScore++;
+        userScoreId.innerHTML = userScore;
+        pcScoreId.innerHTML = pcScore;
     }
     else if(computerSelection == 1 && playerSelection == 2) {
-        console.log("Scissors beats Paper, Player wins!");
+        results.innerHTML = "Scissors beats Paper, Player wins!";
+        userScore++;
+        userScoreId.innerHTML = userScore;
+        pcScoreId.innerHTML = pcScore;
     }
     else if(computerSelection == 2 && playerSelection == 0) {
-        console.log("Rock beats Scissors, Player wins!");
+        results.innerHTML = "Rock beats Scissors, Player wins!";
+        userScore++;
+        userScoreId.innerHTML = userScore;
+        pcScoreId.innerHTML = pcScore;
     }
     else if(computerSelection == 2 && playerSelection == 1) {
-        console.log("Scissors beats Paper, Computer wins!");
+        results.innerHTML = "Scissors beats Paper, Computer wins!";
+        pcScore++;
+        userScoreId.innerHTML = userScore;
+        pcScoreId.innerHTML = pcScore;
     }
     else {
         console.log("Error");
     }
-}
-
-function game() {
-    for(i=0; i==4; i++) {
-        computerPlay();
-        pick();
-        playRound();
+    if(pcScore == 5) {
+        results.innerHTML = "Computer has won. Try again.";
+        pcScore = 0;
+        userScore = 0;
+    }
+    else if(userScore == 5) {
+        results.innerHTML = "You have won!";
+        pcScore = 0;
+        userScore = 0;
     }
 }
- game();
 
+selectionRock.addEventListener('click', function(){
+    playerSelection = 0;
+    computerPlay();
+    playRound();
+})
 
+selectionPaper.addEventListener('click', function(){
+    playerSelection = 1;
+    computerPlay();
+    playRound();
+})
 
-
-
+selectionScissors.addEventListener('click', function(){
+    playerSelection = 2;
+    computerPlay();
+    playRound();
+})
